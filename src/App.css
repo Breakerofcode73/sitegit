@@ -1,0 +1,259 @@
+/* Общие стили для html и body */
+html, body {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Установка шрифта по умолчанию */
+  background-color: #f0f4f7; /* Основной фон */
+}
+
+/* Стили для основного контейнера приложения */
+.App {
+  display: grid;
+  grid-template-columns: 250px 1fr; /* Фиксированная ширина для сайдбара и остальное пространство для контента */
+  height: 100vh;
+  width: 100vw;
+}
+
+/* Стили для сайдбара */
+.sidebar {
+  background-color: #3498db; /* Основной цвет - синий */
+  color: #ffffff; /* Белый текст для контраста */
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  transition: background-color 0.3s;
+}
+
+.sidebar a {
+  color: #ffffff;
+  text-decoration: none;
+  padding: 10px 15px;
+  margin: 5px 0;
+  display: block;
+  font-size: 16px;
+  border-radius: 4px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.sidebar a:hover {
+  background-color: #2980b9; /* Более тёмный оттенок синего */
+  transform: translateX(5px); /* Эффект движения при наведении */
+}
+
+/* Стили для основного контента */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #ffffff; /* Белый фон для контента */
+  overflow-y: auto;
+}
+
+/* Стили для панели поиска */
+.search-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.search-bar input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  font-size: 14px;
+  box-sizing: border-box;
+  border: 1px solid #bdc3c7; /* Серый цвет границы */
+  border-radius: 4px;
+  transition: border-color 0.3s;
+}
+
+.search-bar input[type="text"]:focus {
+  border-color: #3498db; /* Основной цвет при фокусе */
+  outline: none;
+}
+
+.search-bar .tag-in-search {
+  background-color: #2ecc71; /* Зелёный цвет для тегов */
+  color: #ffffff;
+  padding: 5px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-bar .tag-in-search:hover {
+  background-color: #27ae60; /* Более тёмный оттенок зелёного */
+}
+
+/* Стили для выбранных тегов */
+.selected-tags {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.selected-tag {
+  background-color: #2980b9; /* Более тёмный оттенок синего для выбранных тегов */
+  color: #ffffff;
+  padding: 5px 10px;
+  margin: 2px;
+  border-radius: 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.selected-tag:hover {
+  background-color: #1f639b; /* Более тёмный оттенок синего при наведении */
+  color: #ffffff;
+}
+.tag-button {
+  background-color: var(--color-secondary);
+  color: #df1b1b;
+  border: none;
+  padding: 5px 10px;
+  margin: 2px;
+  border-radius: 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.tag-button:hover {
+  background-color: var(--color-accent);
+}
+/* Стили для сетки карточек */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* Стили для карточек */
+.card {
+  background-color: #ffffff;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card h3 {
+  margin-top: 0;
+  color: #2c3e50; /* Тёмный цвет для заголовков */
+  font-size: 18px;
+}
+
+.card p {
+  color: #7f8c8d; /* Серый цвет для текста */
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.card .tags {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card .tag {
+  background-color: #f1c40f; /* Жёлтый цвет для тегов */
+  color: #2c3e50;
+  padding: 5px 10px;
+  margin: 2px;
+  border-radius: 12px;
+  font-size: 12px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.card .tag:hover {
+  background-color: #e67e22; /* Оранжевый цвет при наведении */
+  color: #ffffff;
+}
+
+/* Стили для автозаполнения */
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #bdc3c7;
+  border-top: none;
+  z-index: 99;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #ffffff;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.autocomplete-item {
+  padding: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.autocomplete-item:hover {
+  background-color: #ecf0f1;
+}
+
+/* Стили для модального окна */
+.modal {
+  display: none; /* Скрыто по умолчанию */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+}
+
+.modal-content {
+  background-color: #ffffff;
+  margin: 10% auto; /* 10% от верхнего и нижнего края, по центру */
+  padding: 20px;
+  border: 1px solid #bdc3c7;
+  width: 80%;
+  max-width: 800px;
+  position: relative;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #2c3e50;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.modal-close:hover {
+  color: #7f8c8d;
+}
+
+.modal h2 {
+  margin-top: 0;
+  color: #2c3e50;
+  font-size: 22px;
+}
+
+.modal p {
+  color: #7f8c8d;
+  font-size: 16px;
+  line-height: 1.5;
+}
