@@ -59,7 +59,7 @@ function App() {
     updateAutocomplete(searchQuery);
   }, [searchQuery]);
 
-  // Функция обновления автодополнения для тегов
+  // Функция обновления автодополнения для тегов и названий работ
   const updateAutocomplete = (query) => {
     // Разбиваем строку на токены (слова)
     const tokens = query.split(/\s+/).filter(Boolean);
@@ -77,11 +77,27 @@ function App() {
       setAutocompleteItems([]);
       return;
     }
-    // Подбираем только те теги, которые начинаются с введённого токена и ещё не использованы
-    const filtered = allTags.filter(tag =>
+    // Подбираем предложения из тегов
+    const tagSuggestions = allTags.filter(tag =>
       tag.toLowerCase().startsWith(currentToken.toLowerCase()) &&
       !alreadyUsed.includes(tag)
-    );
+    ).map(suggestion => ({
+      value: suggestion,
+      type: 'Тег',
+    }));
+    // Подбираем предложения из названий работ (заголовков карточек)
+    const titleSuggestions = sampleCards
+      .map(card => card.title)
+      .filter(title =>
+        title.toLowerCase().startsWith(currentToken.toLowerCase()) &&
+        !alreadyUsed.includes(title)
+      )
+      .map(suggestion => ({
+        value: suggestion,
+        type: 'Работа',
+      }));
+    // Объединяем оба массива
+    const filtered = [...tagSuggestions, ...titleSuggestions];
     setAutocompleteItems(filtered);
   };
 
@@ -90,14 +106,14 @@ function App() {
     setSearchQuery(e.target.value);
   };
 
-  // Функция автодополнения: заменяет текущий токен на выбранный тег и добавляет пробел для ввода следующего слова
-  const completeCurrentToken = (tag) => {
+  // Функция автодополнения: заменяет текущий токен на выбранное предложение и добавляет пробел для ввода следующего слова
+  const completeCurrentToken = (value) => {
     let tokens = searchQuery.split(/\s+/);
     if (searchQuery.endsWith(' ')) {
-      // Если строка оканчивается пробелом – просто добавляем новый тег
-      tokens.push(tag);
+      // Если строка оканчивается пробелом – просто добавляем новое слово
+      tokens.push(value);
     } else {
-      tokens[tokens.length - 1] = tag;
+      tokens[tokens.length - 1] = value;
     }
     const newQuery = tokens.join(' ') + ' ';
     setSearchQuery(newQuery);
@@ -109,7 +125,7 @@ function App() {
     if (e.key === 'Tab') {
       e.preventDefault();
       if (autocompleteItems.length > 0) {
-        completeCurrentToken(autocompleteItems[0]);
+        completeCurrentToken(autocompleteItems[0].value);
       }
     }
   };
@@ -166,16 +182,16 @@ function App() {
             onChange={handleSearchInput}
             onKeyDown={handleKeyDown}
           />
-          {/* Список автодополнения для тегов */}
+          {/* Список автодополнения для тегов и названий работ */}
           {autocompleteItems.length > 0 && (
             <div className="autocomplete-items">
-              {autocompleteItems.map((tag, index) => (
+              {autocompleteItems.map((item, index) => (
                 <div
                   key={index}
                   className="autocomplete-item"
-                  onClick={() => completeCurrentToken(tag)}
+                  onClick={() => completeCurrentToken(item.value)}
                 >
-                  {tag}
+                  <span className="suggestion-label">{item.type}:</span> {item.value}
                 </div>
               ))}
             </div>
@@ -193,7 +209,7 @@ function App() {
                   <span key={index} className="tag">{tag}</span>
                 ))}
               </div>
-              {/* Здесь для автора и даты используются блочные элементы, чтобы начинались с новой строки */}
+              {/* Автор и дата на новых строках */}
               <div className="card-footer">
                 <div className="author">{card.author}</div>
                 <div className="date">{card.date}</div>
@@ -227,7 +243,7 @@ function App() {
                 <span key={index} className="tag">{tag}</span>
               ))}
             </div>
-            {/* Аналогично, в модальном окне автор и дата отображаются на новых строках */}
+            {/* Автор и дата в модальном окне на отдельных строках */}
             <div className="modal-footer">
               <div className="author">{selectedCard.author}</div>
               <div className="date">{selectedCard.date}</div>
@@ -240,3 +256,4 @@ function App() {
 }
 
 export default App;
+
