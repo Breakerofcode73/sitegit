@@ -3,28 +3,29 @@ html, body {
   margin: 0;
   height: 100%;
   width: 100%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Установка шрифта по умолчанию */
-  background-color: #f0f4f7; /* Основной фон */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f4f7;
+  scroll-behavior: smooth; /* Плавный скроллинг */
 }
 
 /* Стили для основного контейнера приложения */
 .App {
   display: grid;
-  grid-template-columns: 250px 1fr; /* Фиксированная ширина для сайдбара и остальное пространство для контента */
+  grid-template-columns: 250px 1fr;
   height: 100vh;
   width: 100vw;
 }
 
 /* Стили для сайдбара */
 .sidebar {
-  background-color: #3498db; /* Основной цвет - синий */
-  color: #ffffff; /* Белый текст для контраста */
+  background-color: #3498db;
+  color: #ffffff;
   padding: 20px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .sidebar a {
@@ -39,8 +40,13 @@ html, body {
 }
 
 .sidebar a:hover {
-  background-color: #2980b9; /* Более тёмный оттенок синего */
-  transform: translateX(5px); /* Эффект движения при наведении */
+  background-color: #2980b9;
+  transform: translateX(5px);
+}
+
+/* Добавлен эффект тени для сайдбара */
+.sidebar-shadow {
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Стили для основного контента */
@@ -48,8 +54,15 @@ html, body {
   display: flex;
   flex-direction: column;
   padding: 20px;
-  background-color: #ffffff; /* Белый фон для контента */
+  background-color: #ffffff;
   overflow-y: auto;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Анимация появления контента */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Стили для панели поиска */
@@ -59,6 +72,7 @@ html, body {
   gap: 10px;
   margin-bottom: 20px;
   align-items: center;
+  position: relative;
 }
 
 .search-bar input[type="text"] {
@@ -66,119 +80,15 @@ html, body {
   padding: 10px;
   font-size: 14px;
   box-sizing: border-box;
-  border: 1px solid #bdc3c7; /* Серый цвет границы */
+  border: 1px solid #bdc3c7;
   border-radius: 4px;
-  transition: border-color 0.3s;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .search-bar input[type="text"]:focus {
-  border-color: #3498db; /* Основной цвет при фокусе */
+  border-color: #3498db;
   outline: none;
-}
-
-.search-bar .tag-in-search {
-  background-color: #2ecc71; /* Зелёный цвет для тегов */
-  color: #ffffff;
-  padding: 5px 10px;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.search-bar .tag-in-search:hover {
-  background-color: #27ae60; /* Более тёмный оттенок зелёного */
-}
-
-/* Стили для выбранных тегов */
-.selected-tags {
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 10px;
-}
-
-.selected-tag {
-  background-color: #2980b9; /* Более тёмный оттенок синего для выбранных тегов */
-  color: #ffffff;
-  padding: 5px 10px;
-  margin: 2px;
-  border-radius: 12px;
-  font-size: 12px;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.selected-tag:hover {
-  background-color: #1f639b; /* Более тёмный оттенок синего при наведении */
-  color: #ffffff;
-}
-.tag-button {
-  background-color: var(--color-secondary);
-  color: #df1b1b;
-  border: none;
-  padding: 5px 10px;
-  margin: 2px;
-  border-radius: 12px;
-  font-size: 12px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.tag-button:hover {
-  background-color: var(--color-accent);
-}
-/* Стили для сетки карточек */
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-}
-
-/* Стили для карточек */
-.card {
-  background-color: #ffffff;
-  padding: 20px;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-}
-
-.card h3 {
-  margin-top: 0;
-  color: #2c3e50; /* Тёмный цвет для заголовков */
-  font-size: 18px;
-}
-
-.card p {
-  color: #7f8c8d; /* Серый цвет для текста */
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-.card .tags {
-  margin-top: 15px;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.card .tag {
-  background-color: #f1c40f; /* Жёлтый цвет для тегов */
-  color: #2c3e50;
-  padding: 5px 10px;
-  margin: 2px;
-  border-radius: 12px;
-  font-size: 12px;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.card .tag:hover {
-  background-color: #e67e22; /* Оранжевый цвет при наведении */
-  color: #ffffff;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
 }
 
 /* Стили для автозаполнения */
@@ -205,10 +115,114 @@ html, body {
 .autocomplete-item:hover {
   background-color: #ecf0f1;
 }
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+/* Стили для сетки карточек */
+/* Стили для сетки карточек */
+/* Стили для сетки карточек */
+.card-grid {
+  display: flex;
+  flex-wrap: wrap; /* Позволяет карточкам переходить на новую строку */
+  gap: 16px;
+  justify-content: flex-start; /* Выравнивание карточек по левому краю */
+}
+
+/* Стили для карточек */
+.card {
+  background-color: #ffffff;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  width: calc(18% - 16px); /* Фиксированная ширина карточки, чтобы было 5 в строке, но с уменьшенным размером */
+  height: calc(98% + 16px); /* Немного уменьшенная высота карточки */
+  box-sizing: border-box;
+  flex: 0 0 auto; /* Запрещает растягивание */
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+  .card {
+    width: calc(30% - 16px); /* 3 карточки в строке для экранов среднего размера */
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: calc(45% - 16px); /* 2 карточки в строке для маленьких экранов */
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    width: 100%; /* Одна карточка в строке для очень маленьких экранов */
+  }
+}
+
+
+
+
+/* Добавлены стили для анимации карточек */
+@keyframes cardPop {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.card {
+  animation: cardPop 0.3s ease-in-out;
+}
+
+.card h3 {
+  margin-top: 0;
+  color: #2c3e50;
+  font-size: 18px;
+}
+
+.card p {
+  color: #7f8c8d;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.card .tags {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card .tag {
+  background-color: #f1c40f;
+  color: #2c3e50;
+  padding: 5px 10px;
+  margin: 2px;
+  border-radius: 12px;
+  font-size: 12px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.card .tag:hover {
+  background-color: #e67e22;
+  color: #ffffff;
+}
+
+/* Стили для информации в карточке и модальном окне */
+.card-footer, .modal-footer {
+  margin-top: 15px;
+}
+
+.card-footer .author, .modal-footer .author,
+.card-footer .date, .modal-footer .date {
+  display: block;
+  font-size: 14px;
+  color: #2c3e50;
+}
 
 /* Стили для модального окна */
 .modal {
-  display: none; /* Скрыто по умолчанию */
+  display: none;
   position: fixed;
   z-index: 1000;
   left: 0;
@@ -216,12 +230,12 @@ html, body {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-content {
   background-color: #ffffff;
-  margin: 10% auto; /* 10% от верхнего и нижнего края, по центру */
+  margin: 10% auto;
   padding: 20px;
   border: 1px solid #bdc3c7;
   width: 80%;
@@ -229,6 +243,7 @@ html, body {
   position: relative;
   border-radius: 8px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease-in-out;
 }
 
 .modal-close {
@@ -257,3 +272,101 @@ html, body {
   font-size: 16px;
   line-height: 1.5;
 }
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .App {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .card {
+    flex: 1 1 calc(50% - 16px);
+  }
+
+  .modal-content {
+    width: 95%;
+  }
+}
+/* Стили для формы авторизации */
+/* Общие стили для страницы авторизации */
+/* Общие стили для страницы авторизации */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #ffffff; /* светлый фон */
+}
+
+.login-form {
+  background-color: #8543d1;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  animation: fadeIn 0.5s ease-in-out;
+  border: 2px solid #3498db; /* Синий цвет для обрамления */
+}
+
+/* Стили для полей ввода */
+.login-form input {
+  padding: 15px;
+  margin: 10px 0;
+  border: 1px solid #bdc3c7;
+  border-radius: 4px;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Эффект фокуса для полей ввода */
+.login-form input:focus {
+  border-color: #2ecc71; /* Зеленый цвет при фокусе */
+  outline: none;
+  box-shadow: 0 0 8px rgba(46, 204, 113, 0.5);
+}
+
+/* Стили для кнопки */
+.login-form button {
+  padding: 15px;
+  background-color: #e67e22; /* Оранжевый цвет кнопки */
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+
+/* Эффект при наведении на кнопку */
+.login-form button:hover {
+  background-color: #d35400; /* Темный оранжевый при наведении */
+}
+
+/* Стили для заголовка */
+.login-form h2 {
+  color: #3498db; /* Синий цвет для заголовка */
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Стили для ошибок */
+.error-message {
+  color: #e74c3c; /* Красный цвет для ошибок */
+  font-size: 14px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+
