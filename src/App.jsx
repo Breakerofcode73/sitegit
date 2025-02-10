@@ -47,15 +47,28 @@ const allTags = [
 ];
 
 function App() {
+  // Состояния для поиска, автодополнения и выбранной карточки
   const [searchQuery, setSearchQuery] = useState('');
   const [autocompleteItems, setAutocompleteItems] = useState([]);
   const [selectedCard, setSelectedCard] = useState(null);
-  const [username, setUsername] = useState(localStorage.getItem('username') || '');
-  const [password, setPassword] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('username')); // Проверяем, есть ли сохраненная информация о пользователе
-  const [newUsername, setNewUsername] = useState('');
-  const [newPassword, setNewPassword] = useState('');
 
+  // Состояния для аутентификации
+  // currentUser хранится в localStorage под ключом "currentUser"
+  const [currentUser, setCurrentUser] = useState(localStorage.getItem('currentUser') || '');
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('currentUser'));
+
+  // Режим аутентификации: "login" или "register"
+  const [authMode, setAuthMode] = useState("login");
+  // Состояния для входа
+  const [loginUsername, setLoginUsername] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  // Состояния для регистрации
+  const [registerUsername, setRegisterUsername] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
+  // Сообщение об ошибке при аутентификации
+  const [authError, setAuthError] = useState("");
+
+  // Эффект для обновления автодополнения при изменении строки поиска
   useEffect(() => {
     localStorage.setItem('searchQuery', searchQuery);
     updateAutocomplete(searchQuery);
@@ -167,42 +180,119 @@ function App() {
     setSelectedCard(null);
   };
 
+  // Обработка входа (логин)
   const handleLogin = () => {
-    if (newUsername && newPassword) {
-      localStorage.setItem('username', newUsername);
-      localStorage.setItem('password', newPassword); // Сохраняем пароль
-      setUsername(newUsername);
-      setIsLoggedIn(true);
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const user = users.find(u => u.username === loginUsername);
+    if (!user) {
+      setAuthError("Пользователь не найден. Пожалуйста, зарегистрируйтесь.");
+      return;
     }
+    if (user.password !== loginPassword) {
+      setAuthError("Неверный пароль.");
+      return;
+    }
+    // Успешный вход
+    localStorage.setItem("currentUser", loginUsername);
+    setCurrentUser(loginUsername);
+    setIsLoggedIn(true);
+    setLoginUsername("");
+    setLoginPassword("");
+    setAuthError("");
   };
 
+  // Обработка регистрации
+  const handleRegister = () => {
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const user = users.find(u => u.username === registerUsername);
+    if (user) {
+      setAuthError("Пользователь уже существует. Пожалуйста, войдите.");
+      return;
+    }
+    // Создаём нового пользователя
+    const newUser = { username: registerUsername, password: registerPassword };
+    users.push(newUser);
+    localStorage.setItem("users", JSON.stringify(users));
+    // Автоматический вход после успешной регистрации
+    localStorage.setItem("currentUser", registerUsername);
+    setCurrentUser(registerUsername);
+    setIsLoggedIn(true);
+    setRegisterUsername("");
+    setRegisterPassword("");
+    setAuthError("");
+  };
+
+  // Выход из аккаунта
   const handleLogout = () => {
-    localStorage.removeItem('username');
-    localStorage.removeItem('password');
+    localStorage.removeItem("currentUser");
+    setCurrentUser("");
     setIsLoggedIn(false);
-    setUsername('');
   };
 
   return (
     <div className="App">
       {!isLoggedIn ? (
-        <div className="login-container">
-          <div className="login-form">
-            <h2>Создайте аккаунт или войдите</h2>
-            <input
-              type="text"
-              placeholder="Введите ваше имя"
-              value={newUsername}
-              onChange={(e) => setNewUsername(e.target.value)}
-            />
-            <input
-              type="password"
-              placeholder="Введите ваш пароль"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-            />
-            <button onClick={handleLogin}>Создать аккаунт / Войти</button>
-          </div>
+        <div className="auth-container">
+          {authMode === "login" ? (
+  <div className="login-form">
+    <h2>Вход</h2>
+    <input
+      type="text"
+      placeholder="Имя пользователя"
+      value={loginUsername}
+      onChange={(e) => setLoginUsername(e.target.value)}
+    />
+    <input
+      type="password"
+      placeholder="Пароль"
+      value={loginPassword}
+      onChange={(e) => setLoginPassword(e.target.value)}
+    />
+    <button onClick={handleLogin}>Войти</button>
+    {authError && <p className="error">{authError}</p>}
+    <p>
+      <span
+        className="link"
+        onClick={() => {
+          setAuthMode("register");
+          setAuthError("");
+        }}
+      >
+        Нет аккаунта? Зарегистрируйтесь
+      </span>
+    </p>
+  </div>
+) : (
+  <div className="register-form">
+    <h2>Регистрация</h2>
+    <input
+      type="text"
+      placeholder="Имя пользователя"
+      value={registerUsername}
+      onChange={(e) => setRegisterUsername(e.target.value)}
+    />
+    <input
+      type="password"
+      placeholder="Пароль"
+      value={registerPassword}
+      onChange={(e) => setRegisterPassword(e.target.value)}
+    />
+    <button onClick={handleRegister}>Зарегистрироваться</button>
+    {authError && <p className="error">{authError}</p>}
+    <p className="link">
+      <span
+        className="link"
+        onClick={() => {
+          setAuthMode("login");
+          setAuthError("");
+        }}
+      >
+        Уже есть аккаунт? Войти
+      </span>
+    </p>
+  </div>
+)}
+
         </div>
       ) : (
         <>
@@ -212,7 +302,7 @@ function App() {
             <a href="#!">О проекте</a>
             <a href="#!">Контакты</a>
             <div className="user-info">
-              <span>Добро пожаловать, {username}!</span>
+              <span>Добро пожаловать, {currentUser}!</span>
             </div>
             <button onClick={handleLogout}>Выйти</button>
           </div>
@@ -297,4 +387,5 @@ function App() {
 }
 
 export default App;
+
 
