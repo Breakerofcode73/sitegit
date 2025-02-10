@@ -295,51 +295,54 @@ html, body {
 /* Стили для формы авторизации */
 /* Общие стили для страницы авторизации */
 /* Общие стили для страницы авторизации */
-.login-container {
+
+.login-container,.auth-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100vw;
   height: 100vh;
-  background-color: #ffffff; /* светлый фон */
+  background-color: #1e1e1e; /* Тёмный фон контейнера */
 }
 
-.login-form {
-  background-color: #8543d1;
+.login-form,.register-form {
+  background-color: #2c3e50; /* Тёмно-синий фон формы */
   padding: 40px;
   border-radius: 10px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   width: 100%;
   max-width: 400px;
   animation: fadeIn 0.5s ease-in-out;
-  border: 2px solid #3498db; /* Синий цвет для обрамления */
+  border: 2px solid #c0392b; /* Тёмно-красная рамка */
 }
 
 /* Стили для полей ввода */
-.login-form input {
+.login-form input,.register-form input {
   padding: 15px;
   margin: 10px 0;
-  border: 1px solid #bdc3c7;
+  border: 1px solid #7f8c8d;
   border-radius: 4px;
   font-size: 16px;
   width: 100%;
   box-sizing: border-box;
+  background-color: #34495e; /* Немного более светлый оттенок синего */
+  color: #ecf0f1;
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 /* Эффект фокуса для полей ввода */
-.login-form input:focus {
-  border-color: #2ecc71; /* Зеленый цвет при фокусе */
+.login-form input:focus , .register-form input:focus {
+  border-color: #c0392b; /* Красный цвет при фокусе */
   outline: none;
-  box-shadow: 0 0 8px rgba(46, 204, 113, 0.5);
+  box-shadow: 0 0 8px rgba(192, 57, 43, 0.5);
 }
 
 /* Стили для кнопки */
-.login-form button {
+.login-form button, .register-form button {
   padding: 15px;
-  background-color: #e67e22; /* Оранжевый цвет кнопки */
-  color: #ffffff;
+  background-color: #d35400; /* Тёмно-оранжевый цвет кнопки */
+  color: #ecf0f1;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -349,13 +352,51 @@ html, body {
 }
 
 /* Эффект при наведении на кнопку */
-.login-form button:hover {
-  background-color: #d35400; /* Темный оранжевый при наведении */
+.login-form button:hover, .register-form button:hover {
+  background-color: #ba4a00; /* Ещё более тёмный оттенок при наведении */
+}
+/* Стили для контейнера подсказки (например, "Нет аккаунта? Зарегистрируйтесь" или "Уже есть аккаунт? Войти") */
+/* Стили для контейнера подсказки */
+.auth-container .auth-container {
+  background-color: #ffffff;         /* Белый фон для контраста с тёмной формой */
+  color: #f39c12;                    /* Яркий насыщенный жёлтый текст */
+  font-weight: bold;
+  font-size: 18px;
+  padding: 12px 16px;                /* Внутренние отступы */
+  margin-top: 20px;                  /* Отступ сверху, чтобы отделить от остальных элементов */
+  border-radius: 8px;                /* Скругление углов */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);  /* Небольшая тень для объёма */
+  display: inline-block;             /* Чтобы ширина контейнера была по содержимому */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);  /* Лёгкая тень для улучшения читаемости */
+}
+
+/* Стили для кликабельной ссылки внутри подсказки */
+ .auth-prompt,.auth-container{
+  color: #f39c12;                   /* Тот же яркий жёлтый */
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.3s;
+}
+
+.auth-container, .auth-prompt {
+  color: #e67e22;                   /* Немного изменяем оттенок при наведении */
+}
+
+/* Добавляем стиль для ссылки с подчёркиванием и кликабельностью */
+.link {
+  color: #3498db; /* Синий цвет */
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.3s;
+}
+
+.link:hover {
+  color: #2980b9; /* Более тёмный оттенок при наведении */
 }
 
 /* Стили для заголовка */
-.login-form h2 {
-  color: #3498db; /* Синий цвет для заголовка */
+.login-form h2 , .register-form h2 {
+  color: #f39c12; /* Насыщенный жёлтый для заголовка */
   font-size: 24px;
   margin-bottom: 20px;
   text-align: center;
@@ -363,10 +404,188 @@ html, body {
 
 /* Стили для ошибок */
 .error-message {
-  color: #e74c3c; /* Красный цвет для ошибок */
   font-size: 14px;
   text-align: center;
   margin-top: 10px;
+}
+
+/* Сообщение "Пользователь не найден" */
+.error-message.user-not-found {
+  color: #c0392b; /* Красный цвет для ошибки */
+  font-weight: bold;
+}
+
+/* Сообщение "Пользователь уже существует" */
+.error-message.user-exists {
+  color: #e67e22; /* Оранжевый цвет для другой ошибки */
+  font-weight: bold;
+}
+/* Стили для кнопки открытия чата */
+.chat-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #2ecc71; /* Зеленый цвет кнопки */
+  color: #ffffff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.chat-button:hover {
+  background-color: #27ae60; /* Темнее при наведении */
+  transform: scale(1.05);
+}
+
+/* Стили для страницы чата */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background-color: #ecf0f1;
+}
+
+/* Заголовок чата */
+.chat-header {
+  background-color: #3498db;
+  color: white;
+  padding: 15px;
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+  position: relative;
+}
+
+/* Кнопка назад */
+.chat-header .back-button {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.chat-header .back-button:hover {
+  color: #bdc3c7;
+}
+
+/* Область сообщений */
+.chat-messages {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #ffffff;
+}
+
+/* Сообщение пользователя */
+.message {
+  max-width: 70%;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 14px;
+  word-wrap: break-word;
+}
+
+/* Сообщение отправителя */
+.message.sent {
+  align-self: flex-end;
+  background-color: #2ecc71;
+  color: white;
+  border-bottom-right-radius: 2px;
+}
+
+/* Сообщение получателя */
+.message.received {
+  align-self: flex-start;
+  background-color: #dcdde1;
+  color: #2c3e50;
+  border-bottom-left-radius: 2px;
+}
+
+/* Стили для поля ввода */
+.chat-input {
+  display: flex;
+  padding: 10px;
+  background-color: #f1f1f1;
+  border-top: 1px solid #dcdde1;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #bdc3c7;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.chat-input input:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+/* Кнопка отправки */
+.chat-input button {
+  background-color: #3498db;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: background-color 0.3s;
+}
+
+.chat-input button:hover {
+  background-color: #2980b9;
+}
+
+/* Анимация появления чата */
+@keyframes fadeInChat {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.chat-container {
+  animation: fadeInChat 0.3s ease-in-out;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .chat-button {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+
+  .chat-header {
+    font-size: 18px;
+    padding: 10px;
+  }
+
+  .chat-input {
+    flex-direction: column;
+  }
+
+  .chat-input input {
+    margin-bottom: 10px;
+  }
+
+  .chat-input button {
+    width: 100%;
+  }
 }
 
 
