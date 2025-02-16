@@ -115,18 +115,13 @@ html, body {
 .autocomplete-item:hover {
   background-color: #ecf0f1;
 }
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-}
-/* Стили для сетки карточек */
-/* Стили для сетки карточек */
+
 /* Стили для сетки карточек */
 .card-grid {
   display: flex;
-  flex-wrap: wrap; /* Позволяет карточкам переходить на новую строку */
+  flex-wrap: wrap;
   gap: 16px;
-  justify-content: flex-start; /* Выравнивание карточек по левому краю */
+  justify-content: flex-start;
 }
 
 /* Стили для карточек */
@@ -137,35 +132,32 @@ html, body {
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
-  width: calc(18% - 16px); /* Фиксированная ширина карточки, чтобы было 5 в строке, но с уменьшенным размером */
-  height: calc(98% + 16px); /* Немного уменьшенная высота карточки */
+  width: calc(18% - 16px);
+  height: calc(98% + 16px);
   box-sizing: border-box;
-  flex: 0 0 auto; /* Запрещает растягивание */
+  flex: 0 0 auto;
 }
 
 /* Адаптивность */
 @media (max-width: 1024px) {
   .card {
-    width: calc(30% - 16px); /* 3 карточки в строке для экранов среднего размера */
+    width: calc(30% - 16px);
   }
 }
 
 @media (max-width: 768px) {
   .card {
-    width: calc(45% - 16px); /* 2 карточки в строке для маленьких экранов */
+    width: calc(45% - 16px);
   }
 }
 
 @media (max-width: 480px) {
   .card {
-    width: 100%; /* Одна карточка в строке для очень маленьких экранов */
+    width: 100%;
   }
 }
 
-
-
-
-/* Добавлены стили для анимации карточек */
+/* Анимация карточек */
 @keyframes cardPop {
   from { opacity: 0; transform: scale(0.9); }
   to { opacity: 1; transform: scale(1); }
@@ -208,7 +200,6 @@ html, body {
   color: #ffffff;
 }
 
-/* Стили для информации в карточке и модальном окне */
 .card-footer, .modal-footer {
   margin-top: 15px;
 }
@@ -292,10 +283,8 @@ html, body {
     width: 95%;
   }
 }
-/* Стили для формы авторизации */
-/* Общие стили для страницы авторизации */
-/* Общие стили для страницы авторизации */
 
+/* Стили для формы авторизации */
 .login-container,.auth-container {
   display: flex;
   flex-direction: column;
@@ -303,21 +292,20 @@ html, body {
   align-items: center;
   width: 100vw;
   height: 100vh;
-  background-color: #1e1e1e; /* Тёмный фон контейнера */
+  background-color: #1e1e1e;
 }
 
 .login-form,.register-form {
-  background-color: #2c3e50; /* Тёмно-синий фон формы */
+  background-color: #2c3e50;
   padding: 40px;
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   width: 100%;
   max-width: 400px;
   animation: fadeIn 0.5s ease-in-out;
-  border: 2px solid #c0392b; /* Тёмно-красная рамка */
+  border: 2px solid #c0392b;
 }
 
-/* Стили для полей ввода */
 .login-form input,.register-form input {
   padding: 15px;
   margin: 10px 0;
@@ -326,131 +314,36 @@ html, body {
   font-size: 16px;
   width: 100%;
   box-sizing: border-box;
-  background-color: #34495e; /* Немного более светлый оттенок синего */
+  background-color: #34495e;
   color: #ecf0f1;
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-/* Эффект фокуса для полей ввода */
-.login-form input:focus , .register-form input:focus {
-  border-color: #c0392b; /* Красный цвет при фокусе */
-  outline: none;
-  box-shadow: 0 0 8px rgba(192, 57, 43, 0.5);
-}
-
-/* Стили для кнопки */
-.login-form button, .register-form button {
+.login-form button,.register-form button {
   padding: 15px;
-  background-color: #d35400; /* Тёмно-оранжевый цвет кнопки */
-  color: #ecf0f1;
+  background-color: #3498db;
+  color: #fff;
   border: none;
   border-radius: 4px;
-  cursor: pointer;
   font-size: 16px;
-  width: 100%;
+  cursor: pointer;
   transition: background-color 0.3s;
 }
 
-/* Эффект при наведении на кнопку */
-.login-form button:hover, .register-form button:hover {
-  background-color: #ba4a00; /* Ещё более тёмный оттенок при наведении */
-}
-/* Стили для контейнера подсказки (например, "Нет аккаунта? Зарегистрируйтесь" или "Уже есть аккаунт? Войти") */
-/* Стили для контейнера подсказки */
-.auth-container .auth-container {
-  background-color: #ffffff;         /* Белый фон для контраста с тёмной формой */
-  color: #f39c12;                    /* Яркий насыщенный жёлтый текст */
-  font-weight: bold;
-  font-size: 18px;
-  padding: 12px 16px;                /* Внутренние отступы */
-  margin-top: 20px;                  /* Отступ сверху, чтобы отделить от остальных элементов */
-  border-radius: 8px;                /* Скругление углов */
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);  /* Небольшая тень для объёма */
-  display: inline-block;             /* Чтобы ширина контейнера была по содержимому */
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);  /* Лёгкая тень для улучшения читаемости */
+.login-form button:hover,.register-form button:hover {
+  background-color: #2980b9;
 }
 
-/* Стили для кликабельной ссылки внутри подсказки */
- .auth-prompt,.auth-container{
-  color: #f39c12;                   /* Тот же яркий жёлтый */
-  cursor: pointer;
-  text-decoration: underline;
-  transition: color 0.3s;
-}
-
-.auth-container, .auth-prompt {
-  color: #e67e22;                   /* Немного изменяем оттенок при наведении */
-}
-
-/* Добавляем стиль для ссылки с подчёркиванием и кликабельностью */
-.link {
-  color: #3498db; /* Синий цвет */
-  cursor: pointer;
-  text-decoration: underline;
-  transition: color 0.3s;
-}
-
-.link:hover {
-  color: #2980b9; /* Более тёмный оттенок при наведении */
-}
-
-/* Стили для заголовка */
-.login-form h2 , .register-form h2 {
-  color: #f39c12; /* Насыщенный жёлтый для заголовка */
-  font-size: 24px;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-/* Стили для ошибок */
-.error-message {
-  font-size: 14px;
-  text-align: center;
-  margin-top: 10px;
-}
-
-/* Сообщение "Пользователь не найден" */
-.error-message.user-not-found {
-  color: #c0392b; /* Красный цвет для ошибки */
-  font-weight: bold;
-}
-
-/* Сообщение "Пользователь уже существует" */
-.error-message.user-exists {
-  color: #e67e22; /* Оранжевый цвет для другой ошибки */
-  font-weight: bold;
-}
-/* Стили для кнопки открытия чата */
-.chat-button {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: #2ecc71; /* Зеленый цвет кнопки */
-  color: #ffffff;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 50px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.chat-button:hover {
-  background-color: #27ae60; /* Темнее при наведении */
-  transform: scale(1.05);
-}
-
-/* Стили для страницы чата */
+/* Стили для чата */
 .chat-container {
   display: flex;
   flex-direction: column;
   height: 100vh;
   width: 100vw;
   background-color: #ecf0f1;
+  animation: fadeInChat 0.3s ease-in-out;
 }
 
-/* Заголовок чата */
 .chat-header {
   background-color: #3498db;
   color: white;
@@ -461,7 +354,6 @@ html, body {
   position: relative;
 }
 
-/* Кнопка назад */
 .chat-header .back-button {
   position: absolute;
   left: 15px;
@@ -479,7 +371,6 @@ html, body {
   color: #bdc3c7;
 }
 
-/* Область сообщений */
 .chat-messages {
   flex: 1;
   padding: 15px;
@@ -490,7 +381,6 @@ html, body {
   background-color: #ffffff;
 }
 
-/* Сообщение пользователя */
 .message {
   max-width: 70%;
   padding: 10px 15px;
@@ -499,23 +389,18 @@ html, body {
   word-wrap: break-word;
 }
 
-/* Сообщение отправителя */
 .message.sent {
   align-self: flex-end;
   background-color: #2ecc71;
   color: white;
-  border-bottom-right-radius: 2px;
 }
 
-/* Сообщение получателя */
 .message.received {
   align-self: flex-start;
   background-color: #dcdde1;
   color: #2c3e50;
-  border-bottom-left-radius: 2px;
 }
 
-/* Стили для поля ввода */
 .chat-input {
   display: flex;
   padding: 10px;
@@ -537,7 +422,6 @@ html, body {
   outline: none;
 }
 
-/* Кнопка отправки */
 .chat-input button {
   background-color: #3498db;
   color: white;
@@ -553,17 +437,31 @@ html, body {
   background-color: #2980b9;
 }
 
-/* Анимация появления чата */
+.chat-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #2ecc71;
+  color: #ffffff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.chat-button:hover {
+  background-color: #27ae60;
+  transform: scale(1.05);
+}
+
 @keyframes fadeInChat {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.chat-container {
-  animation: fadeInChat 0.3s ease-in-out;
-}
-
-/* Адаптивность */
 @media (max-width: 768px) {
   .chat-button {
     padding: 10px 15px;
@@ -588,4 +486,133 @@ html, body {
   }
 }
 
+.work-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #ecf0f1;
+  height: 100vh;
+}
 
+/* Контент страницы работы */
+.work-page .content {
+  width: 80%;
+  max-width: 1000px;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  box-sizing: border-box;
+  margin-bottom: 50px;
+  position: relative;
+}
+
+/* Заголовок работы */
+.work-page .content h1 {
+  color: #2c3e50;
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+/* Описание работы */
+.work-page .content p {
+  color: #7f8c8d;
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+/* Стили для тега контейнера внутри контента */
+.work-page .tags-container {
+  position: absolute;
+  top: 250px;
+  right: 20px;
+  background-color: rgba(52, 152, 219, 0.8);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1; /* Чтобы теги не перекрывали основной контент */
+}
+
+/* Стили для каждого тега */
+.work-page .tags-container .tag {
+  background-color: #f1c40f;
+  color: #2c3e50;
+  padding: 8px 15px;
+  margin: 5px;
+  border-radius: 12px;
+  font-size: 14px;
+  transition: background-color 0.3s, color 0.3s;
+  cursor: pointer;
+}
+
+.work-page .tags-container .tag:hover {
+  background-color: #e67e22;
+  color: #ffffff;
+}
+
+/* Кнопка назад */
+.work-page .back-button {
+  display: inline-block;
+  margin-top: 20px;
+  background-color: #3498db;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: none;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+
+.work-page .back-button:hover {
+  background-color: #2980b9;
+}
+
+@media (max-width: 768px) {
+  .work-page .content {
+    width: 90%;
+  }
+
+  .work-page .tags-container {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    padding: 10px;
+  }
+
+  .work-page .tags-container .tag {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .work-page .content {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .work-page .content h1 {
+    font-size: 24px;
+  }
+
+  .work-page .content p {
+    font-size: 16px;
+  }
+
+  .work-page .tags-container {
+    top: 10px;
+    right: 5px;
+    padding: 8px;
+  }
+
+  .work-page .tags-container .tag {
+    font-size: 10px;
+    padding: 5px 8px;
+  }
+}
